@@ -52,13 +52,27 @@ public abstract class EntityRendererMixin {
     private float partialTicks;
 
     @Redirect(
-            method = {"updateLightmap", "updateFogColor"},
+            method = "updateLightmap",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/entity/EntityPlayerSP;isPotionActive(Lnet/minecraft/potion/Potion;)Z"
+            )
+    )
+    private boolean redirectIsPotionActiveForLightmap(net.minecraft.client.entity.EntityPlayerSP player, net.minecraft.potion.Potion potion) {
+        if (potion == MobEffects.NIGHT_VISION && ConfigHandler.MISCELLANEOUS_CONFIG.enableNightVision && player.isInsideOfMaterial(Material.WATER)) {
+            return true;
+        }
+        return player.isPotionActive(potion);
+    }
+
+    @Redirect(
+            method = "updateFogColor",
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/entity/EntityLivingBase;isPotionActive(Lnet/minecraft/potion/Potion;)Z"
             )
     )
-    private boolean redirectIsPotionActive(EntityLivingBase entity, net.minecraft.potion.Potion potion) {
+    private boolean redirectIsPotionActiveForFog(EntityLivingBase entity, net.minecraft.potion.Potion potion) {
         if (potion == MobEffects.NIGHT_VISION && ConfigHandler.MISCELLANEOUS_CONFIG.enableNightVision && entity.isInsideOfMaterial(Material.WATER)) {
             return true;
         }

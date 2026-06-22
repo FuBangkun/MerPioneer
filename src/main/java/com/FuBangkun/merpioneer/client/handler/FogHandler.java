@@ -33,9 +33,6 @@ import java.util.HashSet;
  * Some of the code in this class is based off of Minecraft 1.16.
  */
 public class FogHandler {
-    // Based on Minecraft 1.21.7
-    static final float FOG_END = 96.0F;
-    static final float FOG_START = -8.0F;
     private static HashSet<String> worldProviderClassNames = null;
     private int targetFogColor = -1;
     private int prevFogColor = -1;
@@ -62,13 +59,10 @@ public class FogHandler {
 
     @SubscribeEvent
     public void onRenderFogDensity(EntityViewRenderEvent.FogDensity event) {
-        switch (ConfigHandler.BLOCKS_CONFIG.waterFogMode) {
-            case AA_EXP2:
-                handleExp2Fog(event);
-                break;
-            case VANILLA_LINEAR:
-                handleLinearFog(event);
-                break;
+        if (event.getState().getMaterial() == Material.WATER) {
+            handleLinearFog(event);
+        } else {
+            handleExp2Fog(event);
         }
     }
 
@@ -77,7 +71,7 @@ public class FogHandler {
         if (eventEntity instanceof EntityLivingBase && ((EntityLivingBase) eventEntity).isPotionActive(MobEffects.BLINDNESS)) {
             return;
         }
-        if (event.getState().getMaterial() == Material.WATER && shouldSkipFogOverride(eventEntity.getEntityWorld())) {
+        if (event.getState().getMaterial() != Material.WATER) {
             GlStateManager.setFog(GlStateManager.FogMode.EXP2);
             float density = 0.05f;
             if (eventEntity instanceof EntityPlayer) {
@@ -96,28 +90,21 @@ public class FogHandler {
 
     private void handleLinearFog(EntityViewRenderEvent.FogDensity event) {
         Entity eventEntity = event.getEntity();
-        if (eventEntity instanceof EntityLivingBase && ((EntityLivingBase) eventEntity).isPotionActive(MobEffects.BLINDNESS)) {
+
+        if (eventEntity instanceof EntityLivingBase
+                && ((EntityLivingBase) eventEntity).isPotionActive(MobEffects.BLINDNESS)) {
             return;
         }
 
-        if (event.getState().getMaterial() == Material.WATER && shouldSkipFogOverride(eventEntity.getEntityWorld())) {
+        if (event.getState().getMaterial() == Material.WATER
+                && shouldSkipFogOverride(eventEntity.getEntityWorld())) {
+
+            float farPlane = Minecraft.getMinecraft().gameSettings.renderDistanceChunks * 16.0F;
+
             GlStateManager.setFog(GlStateManager.FogMode.LINEAR);
+            GlStateManager.setFogStart(0.0F);
+            GlStateManager.setFogEnd(farPlane);
 
-            float renderDistanceInBlocks = Minecraft.getMinecraft().gameSettings.renderDistanceChunks * 16.0f;
-            float fogEnd = Math.min(renderDistanceInBlocks, FOG_END);
-
-            if (eventEntity instanceof EntityPlayer) {
-                EntityPlayer playerEntity = (EntityPlayer) eventEntity;
-                float waterVision = ((IPlayerResizeable) playerEntity).getWaterVision();
-                fogEnd *= Math.max(0.25F, waterVision);
-                Biome biome = playerEntity.world.getBiome(playerEntity.getPosition());
-                if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SWAMP)) {
-                    fogEnd *= 0.85F;
-                }
-            }
-
-            GlStateManager.setFogStart(FOG_START);
-            GlStateManager.setFogEnd(fogEnd);
             event.setCanceled(true);
         }
     }
@@ -183,6 +170,28 @@ public class FogHandler {
                 fogRed = (float) ((double) fogRed * blindnessFactor);
                 fogGreen = (float) ((double) fogGreen * blindnessFactor);
                 fogBlue = (float) ((double) fogBlue * blindnessFactor);
+            }
+
+            boolean hasNightVision = playerEntity.isPotionActive(MobEffects.NIGHT_VISION) ||
+                    (ConfigHandler.MISCELLANEOUS_CONFIG.enableNightVision && playerEntity.isInsideOfMaterial(Material.WATER));
+
+            if (hasNightVision) {
+                float nvBrightness = 1.0F;
+
+                if (playerEntity.isPotionActive(MobEffects.NIGHT_VISION)) {
+                    int duration = playerEntity.getActivePotionEffect(MobEffects.NIGHT_VISION).getDuration();
+                    nvBrightness = duration > 200 ? 1.0F : 0.7F + MathHelper.sin(((float)duration - (float)event.getRenderPartialTicks()) * (float)Math.PI * 0.2F) * 0.3F;
+                }
+
+                float scale = 1.0F / fogRed;
+                if (scale > 1.0F / fogGreen) scale = 1.0F / fogGreen;
+                if (scale > 1.0F / fogBlue) scale = 1.0F / fogBlue;
+
+                if (Float.isInfinite(scale)) scale = Math.nextAfter(scale, 0.0);
+
+                fogRed = fogRed * (1.0F - nvBrightness) + fogRed * scale * nvBrightness;
+                fogGreen = fogGreen * (1.0F - nvBrightness) + fogGreen * scale * nvBrightness;
+                fogBlue = fogBlue * (1.0F - nvBrightness) + fogBlue * scale * nvBrightness;
             }
 
             event.setRed(fogRed);

@@ -106,10 +106,6 @@ public class ConfigHandler {
         @Config.Name("New Water Fog")
         @Config.Comment("Use the new fog rendering in 1.13+.")
         public boolean newWaterFog = true;
-
-        @Config.Name("New Water Fog Render Mode")
-        @Config.Comment("Water fog render mode, available options: AA_EXP2, VANILLA_LINEAR")
-        public WaterFogMode waterFogMode = WaterFogMode.AA_EXP2;
     }
 
     public static class MiscellaneousConfig {

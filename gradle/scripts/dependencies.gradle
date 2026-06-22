@@ -86,23 +86,23 @@ dependencies {
     //     transitive = false
     // }
 
-    compileOnly "curse.maven:journeymap-32274:5172461"
-    compileOnly "curse.maven:xaeros-minimap-263420:8231176"
-    compileOnly "curse.maven:thaumcraft-223628:2629023"
-    compileOnly "curse.maven:galacticraft-legacy-564236:6364107"
-    compileOnly "curse.maven:applied-energistics-2-223794:2747063"
-    compileOnly "curse.maven:artemislib-313590:2741812"
-    compileOnly "curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688"
-    compileOnly "curse.maven:chiseled-me-250075:3467731"
-    compileOnly "curse.maven:ender-io-64578:4674244"
-    compileOnly "curse.maven:endercore-231868:4671384"
-    compileOnly "curse.maven:hats-229073:2960397"
-    compileOnly "curse.maven:mo-bends-231347:7046012"
-    compileOnly "curse.maven:morph-229080:2995522"
-    compileOnly "curse.maven:thaumic-augmentation-319441:6047659"
-    compileOnly "curse.maven:trinkets-and-baubles-279900:7997838"
-    compileOnly "curse.maven:wings-302584:2829351"
-    compileOnly 'WitcheryResurrected0.5.2Hotfix4:WitcheryResurrected:1.12.2-0.5.2.4:forge-all'
+    compileOnly rfg.deobf("curse.maven:journeymap-32274:5172461")
+    compileOnly rfg.deobf("curse.maven:xaeros-minimap-263420:8231176")
+    compileOnly rfg.deobf("curse.maven:thaumcraft-223628:2629023")
+    compileOnly rfg.deobf("curse.maven:galacticraft-legacy-564236:6364107")
+    compileOnly rfg.deobf("curse.maven:applied-energistics-2-223794:2747063")
+    compileOnly rfg.deobf("curse.maven:artemislib-313590:2741812")
+    compileOnly rfg.deobf("curse.maven:angry-pixel-the-betweenlands-mod-243363:4479688")
+    compileOnly rfg.deobf("curse.maven:chiseled-me-250075:3467731")
+    compileOnly rfg.deobf("curse.maven:ender-io-64578:4674244")
+    compileOnly rfg.deobf("curse.maven:endercore-231868:4671384")
+    compileOnly rfg.deobf("curse.maven:hats-229073:2960397")
+    compileOnly rfg.deobf("curse.maven:mo-bends-231347:7046012")
+    compileOnly rfg.deobf("curse.maven:morph-229080:2995522")
+    compileOnly rfg.deobf("curse.maven:thaumic-augmentation-319441:6047659")
+    compileOnly rfg.deobf("curse.maven:trinkets-and-baubles-279900:7997838")
+    compileOnly rfg.deobf("curse.maven:wings-302584:2829351")
+    compileOnly rfg.deobf('WitcheryResurrected0.5.2Hotfix4:WitcheryResurrected:1.12.2-0.5.2.4:forge-all')
 
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")

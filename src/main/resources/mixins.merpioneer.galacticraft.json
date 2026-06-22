@@ -1,11 +1,11 @@
 {
   "package": "com.FuBangkun.merpioneer.core.galacticraft",
   "required": true,
-  "refmap": "mixins.mermod.refmap.json",
+  "refmap": "mixins.merpioneer.refmap.json",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8.5",
   "compatibilityLevel": "JAVA_8",
-  "plugin": "com.FuBangkun.merpioneer.core.MarineFrontierMixinPlugin",
+  "plugin": "com.FuBangkun.merpioneer.core.MerPioneerMixinPlugin",
   "mixins": [
     "GCEntityClientPlayerMPMixin",
     "GalacticraftCoreMixin"
