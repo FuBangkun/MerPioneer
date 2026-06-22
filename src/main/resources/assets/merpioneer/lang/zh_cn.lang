@@ -1,0 +1,19 @@
+death.attack.land_suffocation=%1$s 在陆地上因脱离水体窒息而死
+death.attack.land_suffocation.player=%1$s 在与 %2$s 战斗时由于离开水太久憋死了
+chat.merpioneer.cannot_toggle_crawling=现在不能切换爬行！
+
+# Keybindings
+key.merpioneer.category=海裔拓荒
+key.merpioneer.toggle_crawling=切换爬行
+
+# GUI
+gui.merpioneer.tail_config.title=美人鱼尾巴配置
+gui.merpioneer.tail_color=尾巴颜色 (#)
+gui.merpioneer.bra_color=胸衣颜色 (#)
+gui.merpioneer.gradient_color=渐变颜色 (#)
+gui.merpioneer.bra=胸衣
+gui.merpioneer.gradient=渐变
+gui.merpioneer.save=保存
+gui.merpioneer.style.default=样式：默认
+gui.merpioneer.style.ariel=样式：爱丽儿
+gui.merpioneer.style.h2o=样式：水

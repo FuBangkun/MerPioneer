@@ -1,0 +1,19 @@
+death.attack.land_suffocation=%1s died on land by suffocating from the water
+death.attack.land_suffocation.player=%1$s died from holding it in too long without water during the fight against %2$s
+chat.merpioneer.cannot_toggle_crawling=Cannot toggle crawling right now!
+
+# Keybindings
+key.merpioneer.category=Marine Frontier
+key.merpioneer.toggle_crawling=Toggle Crawling
+
+# GUI
+gui.merpioneer.tail_config.title=Mermaid Tail Configuration
+gui.merpioneer.tail_color=Tail Color (#)
+gui.merpioneer.bra_color=Bra Color (#)
+gui.merpioneer.gradient_color=Gradient Color (#)
+gui.merpioneer.bra=Bra
+gui.merpioneer.gradient=Gradient
+gui.merpioneer.save=Save
+gui.merpioneer.style.default=Style: Default
+gui.merpioneer.style.ariel=Style: Ariel
+gui.merpioneer.style.h2o=Style: H2O

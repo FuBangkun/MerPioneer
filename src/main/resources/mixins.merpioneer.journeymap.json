@@ -1,0 +1,12 @@
+{
+  "package": "com.FuBangkun.merpioneer.core.journeymap",
+  "required": true,
+  "refmap": "mixins.mermod.refmap.json",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8.5",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "com.FuBangkun.merpioneer.core.MarineFrontierMixinPlugin",
+  "client": [
+    "VanillaBlockSpriteProxyMixin"
+  ]
+}
